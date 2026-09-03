@@ -1,0 +1,212 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #f2ede4;
+  --color-canvas-2: #e8e0d1;
+  --color-canvas-3: #dcd1bd;
+  --color-ink: #14100b;
+  --color-ink-2: #241d15;
+  --color-ink-3: #3a2f22;
+  --color-terracotta: #c8462e;
+  --color-terracotta-2: #e05a3d;
+  --color-ochre: #d99a3a;
+  --color-sage: #6b7a4f;
+  --color-plum: #4a2545;
+  --color-cream: #faf6ec;
+  --font-serif: "Fraunces", "Times New Roman", serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", "Fira Code", monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: #f2ede4;
+    color: #14100b;
+    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: #c8462e;
+    color: #faf6ec;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: #e8e0d1; }
+::-webkit-scrollbar-thumb {
+  background: #14100b;
+  border-radius: 0;
+  border: 2px solid #e8e0d1;
+}
+
+/* Serif display */
+.font-serif { font-family: "Fraunces", "Playfair Display", "Times New Roman", serif; font-variation-settings: "opsz" 144, "SOFT" 50; font-optical-sizing: auto; letter-spacing: -0.02em; }
+.font-mono { font-family: "JetBrains Mono", "IBM Plex Mono", ui-monospace, monospace; }
+
+/* Grain */
+.grain {
+  position: relative;
+  isolation: isolate;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.15;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.65 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Editorial rules */
+.rule {
+  height: 1px;
+  background: #14100b;
+  opacity: 0.15;
+}
+.rule-thick { height: 2px; background: #14100b; }
+
+/* Ticker marquee */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 45s linear infinite; }
+
+/* Slow marquee reverse */
+@keyframes marqueeR {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.animate-marquee-r { animation: marqueeR 55s linear infinite; }
+
+/* Floating */
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+}
+.animate-float { animation: float 7s ease-in-out infinite; }
+
+/* Blink caret */
+@keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+.caret { animation: blink 1s step-end infinite; }
+
+/* Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* Card lift */
+.lift {
+  transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 0.5s,
+              border-color 0.5s;
+}
+.lift:hover {
+  transform: translateY(-4px);
+}
+
+/* Big number outline */
+.num-outline {
+  -webkit-text-stroke: 1.5px #14100b;
+  color: transparent;
+}
+
+/* Sticker */
+.sticker {
+  border: 1.5px solid #14100b;
+  border-radius: 999px;
+  background: #f2ede4;
+}
+
+/* Warm gradient text */
+.text-warm {
+  background: linear-gradient(100deg, #c8462e 0%, #d99a3a 40%, #4a2545 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Underline swoosh */
+.hand-underline {
+  position: relative;
+  display: inline-block;
+}
+.hand-underline::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  bottom: -8px;
+  height: 12px;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 12' preserveAspectRatio='none'><path d='M2 8 Q 80 2, 160 6 T 298 5' stroke='%23c8462e' stroke-width='3' fill='none' stroke-linecap='round'/></svg>") no-repeat center / 100% 100%;
+}
+
+/* Spin */
+@keyframes spinSlow { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+.spin-slow { animation: spinSlow 22s linear infinite; }
+
+/* Chip */
+.chip {
+  border: 1px solid #14100b;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+/* Editorial big rule with label */
+.eyebrow {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #3a2f22;
+  font-weight: 500;
+}
+
+/* Ink card */
+.ink-card {
+  background: #14100b;
+  color: #faf6ec;
+}
+
+/* Paper card */
+.paper {
+  background: #faf6ec;
+  border: 1px solid rgba(20, 16, 11, 0.12);
+}
+
+/* Terracotta card */
+.terra {
+  background: #c8462e;
+  color: #faf6ec;
+}
+
+/* Soft shadow */
+.shadow-soft {
+  box-shadow: 0 1px 0 rgba(20, 16, 11, 0.04),
+              0 8px 30px -12px rgba(20, 16, 11, 0.15);
+}
+
+/* Draggable big word */
+.big-word {
+  font-family: "Fraunces", serif;
+  line-height: 0.85;
+  letter-spacing: -0.055em;
+  font-weight: 400;
+}
+
+/* Star spin */
+.star-spin { animation: spinSlow 14s linear infinite; transform-origin: center; }
